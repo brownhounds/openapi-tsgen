@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: stable
+
+      - name: Go Generate
+        run: make generate
+
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v9
+        with:
+          version: v2.8
+
+      - name: Install Changelog Lint
+        run: make install-changelog-lint
+
+      - name: Changelog Lint
+        run: make changelog-lint
+
+      - name: Version Lint
+        run: make version-lint
+
+      - name: Tests
+        run: make test
+
+  build:
+    runs-on: ubuntu-latest
+    needs: [lint]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: stable
+
+      - name: Go Compile
+        run: make ci-build
