@@ -1,0 +1,130 @@
+{
+  "openapi": "3.1.1",
+  "info": {
+    "title": "Maps & Patterns API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/maps": {
+      "post": {
+        "summary": "Maps",
+        "operationId": "maps",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MapPayload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MapResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "FreeForm": {
+        "type": "object",
+        "additionalProperties": true
+      },
+      "StringMap": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      },
+      "MixedMap": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            }
+          ]
+        }
+      },
+      "Patterned": {
+        "type": "object",
+        "patternProperties": {
+          "^x-": {
+            "type": "string"
+          },
+          "^[0-9]+$": {
+            "type": "integer"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PatternAndAdditional": {
+        "type": "object",
+        "patternProperties": {
+          "^s-": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": {
+          "type": "boolean"
+        }
+      },
+      "MapPayload": {
+        "type": "object",
+        "required": [
+          "freeForm",
+          "patterned"
+        ],
+        "properties": {
+          "freeForm": {
+            "$ref": "#/components/schemas/FreeForm"
+          },
+          "stringMap": {
+            "$ref": "#/components/schemas/StringMap"
+          },
+          "mixedMap": {
+            "$ref": "#/components/schemas/MixedMap"
+          },
+          "patterned": {
+            "$ref": "#/components/schemas/Patterned"
+          },
+          "patternAndAdditional": {
+            "$ref": "#/components/schemas/PatternAndAdditional"
+          }
+        }
+      },
+      "MapResponse": {
+        "type": "object",
+        "properties": {
+          "freeForm": {
+            "$ref": "#/components/schemas/FreeForm"
+          },
+          "patterned": {
+            "$ref": "#/components/schemas/Patterned"
+          }
+        }
+      }
+    }
+  }
+}

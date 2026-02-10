@@ -1,0 +1,94 @@
+{
+  "openapi": "3.1.1",
+  "info": {
+    "title": "Methods API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/resource": {
+      "get": {
+        "summary": "Get",
+        "operationId": "getResource",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "summary": "Put",
+        "operationId": "putResource",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No content"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Patch",
+        "operationId": "patchResource",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete",
+        "operationId": "deleteResource",
+        "responses": {
+          "204": {
+            "description": "No content"
+          }
+        }
+      },
+      "head": {
+        "summary": "Head",
+        "operationId": "headResource",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "options": {
+        "summary": "Options",
+        "operationId": "optionsResource",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "trace": {
+        "summary": "Trace",
+        "operationId": "traceResource",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  }
+}

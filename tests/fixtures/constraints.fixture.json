@@ -1,0 +1,126 @@
+{
+  "openapi": "3.1.1",
+  "info": {
+    "title": "Constraints API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/accounts": {
+      "post": {
+        "summary": "Create account",
+        "operationId": "createAccount",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Account"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Account"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Account": {
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "writeOnly": true
+          }
+        }
+      },
+      "NotString": {
+        "type": "string",
+        "not": {
+          "const": "bad"
+        }
+      },
+      "IfThenElseSample": {
+        "type": "object",
+        "required": [
+          "kind"
+        ],
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "a",
+              "b"
+            ]
+          },
+          "aOnly": {
+            "type": "string"
+          },
+          "bOnly": {
+            "type": "number"
+          }
+        },
+        "if": {
+          "properties": {
+            "kind": {
+              "const": "a"
+            }
+          }
+        },
+        "then": {
+          "required": [
+            "aOnly"
+          ]
+        },
+        "else": {
+          "required": [
+            "bOnly"
+          ]
+        }
+      },
+      "DependentRequiredSample": {
+        "type": "object",
+        "properties": {
+          "creditCard": {
+            "type": "string"
+          },
+          "billingAddress": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "dependentRequired": {
+          "creditCard": [
+            "billingAddress"
+          ]
+        }
+      }
+    }
+  }
+}

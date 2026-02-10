@@ -1,0 +1,127 @@
+openapi: 3.1.1
+info:
+  title: Polymorphism API
+  version: "1.0.0"
+paths:
+  /polymorph:
+    post:
+      summary: Polymorph
+      operationId: polymorph
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PolyRequest"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PolyResponse"
+components:
+  schemas:
+    PetBase:
+      type: object
+      required: [petType, name]
+      properties:
+        petType:
+          type: string
+        name:
+          type: string
+    Cat:
+      allOf:
+        - $ref: "#/components/schemas/PetBase"
+        - type: object
+          required: [huntingSkill]
+          properties:
+            petType:
+              const: cat
+            huntingSkill:
+              type: string
+              enum: [clueless, lazy]
+    Dog:
+      allOf:
+        - $ref: "#/components/schemas/PetBase"
+        - type: object
+          required: [packSize]
+          properties:
+            petType:
+              const: dog
+            packSize:
+              type: integer
+              minimum: 0
+    Pet:
+      oneOf:
+        - $ref: "#/components/schemas/Cat"
+        - $ref: "#/components/schemas/Dog"
+      discriminator:
+        propertyName: petType
+        mapping:
+          cat: "#/components/schemas/Cat"
+          dog: "#/components/schemas/Dog"
+    Vehicle:
+      oneOf:
+        - $ref: "#/components/schemas/Car"
+        - $ref: "#/components/schemas/Bike"
+      discriminator:
+        propertyName: kind
+    Car:
+      type: object
+      required: [kind, doors]
+      properties:
+        kind:
+          const: car
+        doors:
+          type: integer
+          enum: [2, 4]
+    Bike:
+      type: object
+      required: [kind, hasBell]
+      properties:
+        kind:
+          const: bike
+        hasBell:
+          type: boolean
+    MaybeString:
+      type: string
+      nullable: true
+    StringOrNumber:
+      anyOf:
+        - type: string
+        - type: number
+    OneOfWithNull:
+      oneOf:
+        - type: string
+        - type: "null"
+    MixedAnyAllOne:
+      allOf:
+        - anyOf:
+            - type: string
+            - type: number
+        - oneOf:
+            - const: a
+            - const: b
+    PolyRequest:
+      type: object
+      required: [pet, vehicle]
+      properties:
+        pet:
+          $ref: "#/components/schemas/Pet"
+        vehicle:
+          $ref: "#/components/schemas/Vehicle"
+        maybe:
+          $ref: "#/components/schemas/MaybeString"
+        oneOrNull:
+          $ref: "#/components/schemas/OneOfWithNull"
+        stringOrNumber:
+          $ref: "#/components/schemas/StringOrNumber"
+        mixed:
+          $ref: "#/components/schemas/MixedAnyAllOne"
+    PolyResponse:
+      type: object
+      required: [pet]
+      properties:
+        pet:
+          $ref: "#/components/schemas/Pet"

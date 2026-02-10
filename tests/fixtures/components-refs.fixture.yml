@@ -1,0 +1,87 @@
+openapi: 3.1.1
+info:
+  title: Components & Refs API
+  version: "1.0.0"
+paths:
+  /users:
+    get:
+      summary: List users
+      operationId: listUsers
+      parameters:
+        - $ref: "#/components/parameters/Limit"
+        - $ref: "#/components/parameters/TraceId"
+      responses:
+        "200":
+          $ref: "#/components/responses/UserList"
+  /users/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      summary: Update user
+      operationId: updateUser
+      requestBody:
+        $ref: "#/components/requestBodies/UserUpdate"
+      responses:
+        "204":
+          description: No content
+        "404":
+          $ref: "#/components/responses/NotFound"
+components:
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+    TraceId:
+      name: x-trace-id
+      in: header
+      required: false
+      schema:
+        type: string
+  headers:
+    RateLimit:
+      description: Requests per minute
+      schema:
+        type: integer
+  requestBodies:
+    UserUpdate:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/User"
+  responses:
+    UserList:
+      description: OK
+      headers:
+        X-Rate-Limit:
+          $ref: "#/components/headers/RateLimit"
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/User"
+    NotFound:
+      description: Not found
+      content:
+        text/plain:
+          schema:
+            type: string
+  schemas:
+    User:
+      type: object
+      required: [id, email]
+      properties:
+        id:
+          type: string
+        email:
+          type: string
