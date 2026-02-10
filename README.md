@@ -8,6 +8,22 @@
 
 ## OpenAPI TSGEN
 
+Generate TypeScript types from OpenAPI schemas (YAML or JSON).
+
+## Usage
+
+Basic usage:
+
+```bash
+openapi-tsgen -s schema.yml -o type.ts
+```
+
+JSON input:
+
+```bash
+openapi-tsgen -s schema.json -o type.ts --input-json
+```
+
 ## Install
 
 ### Build From Source
