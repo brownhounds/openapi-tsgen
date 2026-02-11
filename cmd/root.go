@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"github.com/brownhounds/openapi-tsgen/schema"
-	"github.com/brownhounds/openapi-tsgen/version"
+	"github.com/brownhounds/openapi-tsgen/ver"
 	"github.com/spf13/cobra"
 )
 
@@ -14,7 +14,7 @@ var errOutputPathRequired = errors.New("output path is required")
 var rootCmd = &cobra.Command{
 	Use:           "openapi-tsgen [schema.yml]",
 	Short:         "Generate TypeScript types from an OpenAPI schema",
-	Version:       version.Ver,
+	Version:       ver.Ver,
 	SilenceUsage:  true,
 	SilenceErrors: true,
 	RunE: func(cmd *cobra.Command, args []string) error {

@@ -1,4 +1,4 @@
-package version
+package ver
 
 import _ "embed"
 

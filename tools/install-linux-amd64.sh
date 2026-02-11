@@ -11,7 +11,7 @@ log_message_info() {
 }
 
 log_message_info "Fetching executable..."
-wget https://github.com/brownhounds/openapi-tsgen/releases/download/v0.1.0/openapi-tsgen-linux-amd64
+wget https://github.com/brownhounds/openapi-tsgen/releases/download/v0.1.1/openapi-tsgen-linux-amd64
 
 log_message_info "Installing..."
 chmod +x ./openapi-tsgen-linux-amd64
