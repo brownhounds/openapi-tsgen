@@ -1,7 +1,7 @@
 #!/bin/bash
 
 CHANGELOG_FILE="CHANGELOG.md"
-VERSION_FILE="VERSION"
+VERSION_FILE="./ver/VERSION"
 
 if [[ ! -f "$CHANGELOG_FILE" ]]; then
   echo "Changelog file not found!"

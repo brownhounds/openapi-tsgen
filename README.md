@@ -42,19 +42,19 @@ go build -ldflags="-s -w" -o ./bin/openapi-tsgen main.go
 ### Install With Go
 
 ```bash
-go install github.com/brownhounds/openapi-tsgen@v0.1.1
+go install github.com/brownhounds/openapi-tsgen@v0.1.2
 ```
 
 ### Install Script LINUX/amd64
 
 ```bash
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/brownhounds/openapi-tsgen/v0.1.1/tools/install-linux-amd64.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/brownhounds/openapi-tsgen/v0.1.2/tools/install-linux-amd64.sh)"
 ```
 
 ### Install Script LINUX/arm64
 
 ```bash
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/brownhounds/openapi-tsgen/v0.1.1/tools/install-linux-arm64.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/brownhounds/openapi-tsgen/v0.1.2/tools/install-linux-arm64.sh)"
 ```
 
 ### Post Install/LINUX

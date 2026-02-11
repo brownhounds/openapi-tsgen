@@ -47,9 +47,9 @@ ci-build:
 git-tag:
 	@./scripts/release.sh $(v)
 	@./scripts/lint-version.sh
-	git tag --sign v$(v) -m v$(v)
-	git push origin v$(v)
+	@git tag --sign v$(v) -m v$(v)
+	@git push origin v$(v)
 
 git-tag-remove:
-	git tag -d v$(v)
-	git push --delete origin v$(v)
+	@git tag -d v$(v)
+	@git push --delete origin v$(v)
